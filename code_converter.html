@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Code Converter</title>
+    <script language="javascript" type="text/javascript" src="snake.js" ></script>
+    <script>
+	
+	function convert(){
+		
+		var simple = S("#simpleCode").val(),
+			str = "";
+		
+		if(S("#ld1").property("checked") == true){//Light
+		
+			if(S("#rd1").property("checked") == true){//HTML
+				
+				str = "<div class='javasnake-code-box-html-2' ><pre>";
+				
+			} else if(S("#rd2").property("checked") == true){//JS
+				
+				str = "<div class='javasnake-code-box-js-2' ><pre>";
+				
+			} else if(S("#rd3").property("checked") == true){//CSS
+				
+				str = "<div class='javasnake-code-box-css-3' ><pre>";
+				
+			}
+			
+		} else {//Dark
+		
+			if(S("#rd1").property("checked") == true){//HTML
+				
+				str = "<div class='javasnake-code-box-html-dark' ><pre>";
+				
+			} else if(S("#rd2").property("checked") == true){//JS
+				
+				str = "<div class='javasnake-code-box-js-2-dark' ><pre>";
+				
+			} else if(S("#rd3").property("checked") == true){//CSS
+				
+				str = "<div class='javasnake-code-box-css-2-dark' ><pre>";
+				
+			}
+			
+		}
+		
+		for(var i=0; i<simple.length; i++){
+			
+			switch(simple[i]){
+				
+				case "'":
+					str += "&#39;";
+				break;
+				case '"':
+					str += "&quot;";
+				break;
+				case "<":
+					str += "&lt;";
+				break;
+				case ">":
+					str += "&gt;";
+				break;
+				case "&":
+					str += "&amp;";
+				break;
+				default:
+					str += simple[i];
+				break;
+				
+			}
+			
+		}
+		
+		str += "</pre></div>";
+		
+		S("#escapedCode")
+		.text(str);
+		
+	}
+	
+	</script>
+    <style>
+	
+	#simpleCode{
+		display: block;
+		width: 512px;
+		height: 256px;
+		resize: none;
+		overflow: auto;
+	}
+	#escapedCode{
+		display: block;
+		width: 512px;
+		height: 256px;
+		border: 1px solid #555;
+		padding: 1.5px;
+		overflow: auto;
+		-webkit-user-select: all;  /* Chrome all / Safari all */
+ 	    -moz-user-select: all;     /* Firefox all */
+	    -ms-user-select: all;      /* IE 10+ */
+	    user-select: all;          /* Likely future */
+	}
+	#container{
+		display: block;
+		width: 512px;
+		height: auto;
+		position: relative;
+		margin: 0 auto;
+	}
+	#container > button{
+		width: 512px;
+		height: 32px;
+		line-height: 32px;
+		padding: 0;
+		font-size: 14px;
+	}
+	
+	</style>
+</head>
+<body>
+<div id="container" >
+	<table cellspacing="0" style="font-family: courier new" >
+    	<tr>
+        	<td>Light:</td>
+        	<td><input id="ld1" type="radio" name="color" value="light" checked /></td>
+        </tr>
+    	<tr>
+        	<td>Dark:</td>
+        	<td><input id="ld2" type="radio" name="color" value="dark" /></td>
+        </tr>
+    </table>
+    <hr/>
+	<table cellspacing="0" style="font-family: courier new" >
+    	<tr>
+	        <td>HTML:</td>
+            <td><input id="rd1" type="radio" name="lang" value="html" checked /></td>
+        </tr>
+        <tr>
+        	<td>JS:</td>
+            <td><input id="rd2" type="radio" name="lang" value="js" /></td>
+        </tr>
+        <tr>
+        	<td>CSS:</td>
+            <td><input id="rd3" type="radio" name="lang" value="css" /></td>
+        </tr>
+    </table>
+    <textarea id="simpleCode" spellcheck="false" ></textarea><br/>
+    <button onClick="convert()" >Convert</button><br/>
+    <pre id="escapedCode" ></pre>
+</div>
+</body>
+</html>
